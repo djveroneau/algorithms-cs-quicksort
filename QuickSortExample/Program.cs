@@ -22,10 +22,11 @@ namespace QuickSortExample
         static int[] QuickSortFcn(int[] data)
         {
             int pivotIndex = data.Length / 2;
-            int pivotValue = data[pivotIndex];
 
-            if (data.Length == 1)
+            if (data.Length <= 1)
                 return data;
+
+            int pivotValue = data[pivotIndex];
 
             // Put the pivot all the way on the left.
             data = Swap(data, pivotIndex, 0);
@@ -36,13 +37,13 @@ namespace QuickSortExample
 
             while (true)
             {
-                while (data[i] <= pivotValue && i < (data.Length-1))
+                while (data[i] < pivotValue && i < (data.Length-1) )
                 {
                     i++;
                     continue;
                 }
 
-                while (data[j] >= pivotValue && j > 1)
+                while (data[j] > pivotValue && j > 0)
                 {
                     j--;
                     continue;
@@ -58,14 +59,14 @@ namespace QuickSortExample
                 }
             }
 
-            if (data.Length > 3)
+            if (data.Length > 1)
             {
                 List<int> left = new List<int>();
                 List<int> right = new List<int>();
 
                 for (int n = 0; n < pivotIndex; n++)
                     left.Add(data[n]);
-                for (int m = (data.Length - 1); m > pivotIndex; m--)
+                for (int m = (pivotIndex + 1); m < data.Length; m++)
                     right.Add(data[m]);
 
                 left = QuickSortFcn(left);
